@@ -1,0 +1,29 @@
+<% for( const prod of products ) { %>
+  <div class="w-full px-3 mb-6 lg:mb-0">
+    <div class="p-6 rounded shadow-slate-200 shadow-lg">
+      <span
+        class="px-2 py-1 text-xs font-bold border-2 border-teal-500 rounded-full text-white bg-teal-500"><%= prod.label %></span>
+      <a class="block px-6 mt-6 mb-2" href="/shop/<%= prod.slug %>">
+        <img class="mb-5 mx-auto h-56 w-full object-contain" src="/<%= prod.image %>" alt="" />
+      </a>
+
+      <h3 class="mb-2 text-2xl text-slate-600 font-semibold  max-w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
+        <a href="/shop/<%= prod.slug %>">
+          <%= prod.title %>
+        </a>
+      </h3>
+
+      <p class="text-lg sm:text-2xl lg:text-3xl text-sky-900">
+        <span>$<%= prod.price %></span>
+        <span class="text-xs text-gray-500 font-semibold align-middle line-through">$33.69</span>
+      </p>
+      <a class="ml-auto mr-2 flex items-center justify-center w-12 h-12 border rounded-lg hover:border-gray-500"
+        href="#">
+        <svg width="12" height="12" viewbox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" width="2" height="12" fill="#161616"></rect>
+          <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)" fill="#161616"></rect>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <% } %>

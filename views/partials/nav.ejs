@@ -1,0 +1,253 @@
+<div class="dark:bg-gray-900">
+    <div>
+        <div class="relative">
+            <!-- For md screen size -->
+            <div id="md-searchbar"
+                class="bg-white dark:bg-gray-900 hidden max-md:hidden lg:hidden py-4 px-6 items-center justify-between">
+                <div class="flex items-center space-x-3 text-gray-800 dark:text-white">
+                    <div>
+                        <img class="dark:hidden" src="/images/search.svg" alt="search">
+                        <img class="dark:block hidden" src="/images/search-dark.svg" alt="search">
+                    </div>
+                    <input type="text" placeholder="Search for products"
+                        class="w-max text-sm leading-none dark:text-gray-300 dark:bg-gray-900 text-gray-600 focus:outline-none py-2" />
+                </div>
+                <div class="flex space-x-2">
+
+                    <% if(isAuthenticated){ %>
+                        <a  href="/cart" aria-label="go to cart"
+                            class="text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-800">
+                            <img class="w-5 dark:hidden" src="/images/cart.svg" alt="bag">
+                            <img class="w-5 dark:block hidden" src="/images/cart-dark.svg" alt="bag">
+                        </a>
+                        <form id="logout" action="/logout" method="POST" class="sr-only">
+                        </form>
+
+                        <form id="logout" action="/logout" method="POST" class="sr-only">
+                        </form>
+
+                        <a href="javascript:logout()"
+                            class="dark:text-white text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">Logout</a>
+
+
+                        <% } else { %>
+                            <a class=" text-sm font-semibold  hover:text-gray-900" href="/login">Sign In</a>
+                            <a href="/signup"
+                                class="inline-flex items-center justify-center px-5 py-3 ml-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                                Create an account
+                            </a>
+                            <% } %>
+                </div>
+            </div>
+            <!-- For md screen size -->
+
+            <!-- For large screens -->
+            <div class="dark:bg-gray-900 bg-gray-50 px-6 py-9">
+                <div class="max-w-7xl mx-auto flex items-center justify-between">
+                    <a href="/" class="md:w-2/12 cursor-pointer text-gray-800 dark:text-white" aria-label="the Crib.">
+                        <img class="dark:hidden" src="/images/nav/logo.svg" alt="logo">
+                        <img class="dark:block hidden" src="/images/nav/logo-dark.svg" alt="logo">
+                    </a>
+                    <ul class="hidden  md:flex items-center justify-center space-x-8">
+                        <li>
+                            <a href="/"
+                                class="dark:text-white text-base text-gray-800 focus:outline-none  hover:underline">Home</a>
+                        </li>
+                        <li>
+                            <a href="/shop"
+                                class="dark:text-white text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">Shop</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"
+                                class="dark:text-white text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">Lookbook</a>
+                        </li>
+
+
+
+                        <li>
+                            <a href="/contact"
+                                class="dark:text-white text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class=" justify-end flex items-center space-x-4 xl:space-x-8">
+                        <div class="hidden lg:flex items-center">
+                            <button onclick="toggleSearch()" aria-label="search items"
+                                class="w-5 text-gray-800 dark:hover:text-gray-300 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-800">
+                                <img class="transform rotate-90 dark:hidden" src="/images/search.svg" alt="search">
+                                <img class="transform rotate-90 dark:block hidden" src="/images/search-dark.svg"
+                                    alt="search">
+                            </button>
+                            <input id="searchInput" type="text" placeholder="search"
+                                class="hidden text-sm dark:bg-gray-900 dark:placeholder-gray-300 text-gray-600 rounded ml-1 border border-transparent focus:outline-none focus:border-gray-400 p-2" />
+                        </div>
+                        <div class="hidden lg:flex items-center  space-x-4 ">
+                            <% if(isAuthenticated){ %>
+
+                                <a href="/cart" aria-label="go to cart"
+                                    class="w-6 text-gray-800 dark:hover:text-gray-300 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-800">
+                                    <img class=" dark:hidden" src="/images/cart.svg" alt="bag">
+                                    <img class=" dark:block hidden" src="/images/cart-dark.svg" alt="bag">
+                                </a>
+
+                                <form id="logout" action="/logout" method="POST" class="sr-only">
+                                </form>
+
+                                <a href="javascript:logout()"
+                                    class="dark:text-white text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">Logout</a>
+                                <% } else { %>
+                                    <a class=" text-sm font-semibold  hover:text-gray-900" href="/login">Sign In</a>
+                                    <a href="/signup"
+                                        class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                                        Create an account
+                                    </a>
+                                    <% } %>
+
+                        </div>
+
+                        <div class="flex lg:hidden">
+                            <button aria-label="show options" onclick="mdOptionsToggle()"
+                                class="text-black dark:text-white dark:hover:text-gray-300 hidden md:flex focus:outline-none focus:ring-2 rounded focus:ring-gray-600">
+                                <img class=" dark:hidden"
+                                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/navigation-I-svg5.svg"
+                                    alt="toggler">
+                                <img class=" dark:block hidden"
+                                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/navigation-I-svg5dark.svg"
+                                    alt="toggler">
+                            </button>
+
+                            <button aria-label="open menu" onclick="openMenu()"
+                                class="text-black dark:text-white dark:hover:text-gray-300 md:hidden focus:outline-none focus:ring-2 rounded focus:ring-gray-600">
+                                <img class=" dark:hidden"
+                                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/navigation-I-svg5.svg"
+                                    alt="toggler">
+                                <img class=" dark:block hidden"
+                                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/navigation-I-svg5dark.svg"
+                                    alt="toggler">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- For small screen -->
+            <div id="mobile-menu"
+                class="absolute dark:bg-gray-900 z-10 inset-0 md:hidden bg-white flex-col h-fit w-full hidden">
+                <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 pb-4 p-4">
+                    <div class="flex items-center space-x-3">
+                        <div>
+                            <img class="dark:hidden" src="/images/search.svg" alt="search">
+                            <img class="dark:block hidden" src="/images/search-dark.svg" alt="search">
+                        </div>
+                        <input type="text" placeholder="Search for products"
+                            class="text-sm dark:bg-gray-900 text-gray-600 placeholder-gray-600 dark:placeholder-gray-300 focus:outline-none py-2" />
+                    </div>
+
+                    <button onclick="closeMenu()" aria-label="close menu"
+                        class="focus:outline-none focus:ring-2 rounded focus:ring-gray-600">
+                        <img class="dark:hidden"
+                            src="https://tuk-cdn.s3.amazonaws.com/can-uploader/navigation-I-svg6.svg" alt="cross">
+                        <img class="dark:block hidden"
+                            src="https://tuk-cdn.s3.amazonaws.com/can-uploader/navigation-I-svg6dark.svg" alt="cross">
+                    </button>
+                </div>
+                <div class="mt-6 p-4">
+                    <ul class="flex flex-col space-y-6">
+                        <li>
+                            <a href="/"
+                                class="dark:text-white flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none">
+                                Home
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/shop"
+                                class="dark:text-white flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800">
+                                Shop
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"
+                                class="dark:text-white flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800">
+                                Lookbook
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/contact"
+                                class="dark:text-white flex items-center justify-between hover:underline text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800">
+                                Contact
+
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="h-full flex">
+                    <ul class="flex flex-col space-y-8 bg-gray-50 w-full py-10 p-4 dark:bg-gray-800">
+
+                        <% if(isAuthenticated){ %>
+                            <li>
+
+                                <a href="/cart"
+                                    class="dark:text-white text-gray-800 flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
+                                    <div>
+                                        <img class="w-5 dark:hidden" src="/images/cart.svg" alt="bag">
+                                        <img class="w-5 dark:block hidden" src="/images/cart-dark.svg" alt="bag">
+                                    </div>
+                                    <p class="text-base">Cart</p>
+                                </a>
+                            </li>
+
+                            <li>
+                                <form id="logout" action="/logout" method="POST" class="sr-only">
+                                </form>
+
+                                <a href="javascript:logout()"
+                                    class="dark:text-white text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">Logout</a>
+                            </li>
+                            <% } else { %>
+                                <li>
+
+                                    <a class=" text-sm font-semibold  hover:text-gray-900" href="/login">Sign In</a>
+                                </li>
+                                <li>
+
+                                    <a href="/signup"
+                                        class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                                        Create an account
+                                    </a>
+                                </li>
+                                <% } %>
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    const toggleSearch = () => {
+        document.getElementById("searchInput").classList.toggle("hidden");
+    };
+    const mdOptionsToggle = () => {
+        document.getElementById("md-searchbar").classList.toggle("hidden");
+        document.getElementById("md-searchbar").classList.toggle("flex");
+    };
+    const openMenu = () => {
+        document.getElementById("mobile-menu").classList.remove("hidden");
+    };
+    const closeMenu = () => {
+        document.getElementById("mobile-menu").classList.add("hidden");
+    };
+
+    function logout() {
+        const form = document.getElementById('logout');
+        form.submit()
+    }
+</script>

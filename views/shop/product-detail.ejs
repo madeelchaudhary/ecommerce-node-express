@@ -1,0 +1,103 @@
+<%- include('../partials/open.ejs') %>
+    <%- include('../partials/closeHead.ejs') %>
+        <%- include('../partials/nav.ejs') %>
+
+            <div class="md:flex items-start justify-center py-12 lg:pt-20 2xl:px-20 md:px-6 px-4">
+                <div class="xl:w-2/6 lg:w-2/5 w-80 ">
+                    <img class="w-full" alt="<%= product.title %>" src="/<%= product.image %>" />
+
+                </div>
+                <div class="xl:w-2/5 md:w-1/2 lg:ml-8 md:ml-6 md:mt-0 mt-6">
+                    <div class="border-b border-gray-200 pb-6">
+                        <p class="font-medium leading-none text-gray-600 dark:text-gray-300 ">
+                            <%= product.category.name %>
+                        </p>
+                        <h1
+                            class="text-2xl font-bold tracking-tight leading-none md:text-3xl text-gray-800 dark:text-white mt-2">
+                            <%= product.title %>
+                        </h1>
+                        <p
+                            class="xl:text-6xl lg:text-5xl text-3xl lg:leading-6 leading-7 text-slate-700 dark:text-white mt-7">
+                            $<%= product.price %>
+                        </p>
+                    </div>
+
+                    <form action="/add-to-cart/<%= product.id %>" method="POST">
+                        <button <%=isAuthenticated ? "" : disabled %>
+                            class="dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 focus:ring-2
+                            focus:ring-offset-2 focus:ring-gray-800 text-white bg-gray-800 w-full py-4 hover:bg-gray-700
+                            focus:outline-none">
+                            Add to Cart
+                        </button>
+                    </form>
+                    <div class="mt-7">
+                        <p>
+                            <span>
+                                <%= product.title %>
+                            </span> <span class="text-sm leading-none text-gray-600 dark:text-gray-300 "> by <%=
+                                    product.brand %></span>
+                        </p>
+                        <p
+                            class="xl:pr-20 text-base lg:leading-tight leading-normal text-gray-600 dark:text-gray-300 mt-2">
+                            <%= product.description %>
+                        </p>
+                    </div>
+                    <div>
+                        <div class="border-t border-b py-4 mt-7 border-gray-200">
+                            <div data-menu class="flex justify-between items-center cursor-pointer">
+                                <p class="text-base leading-4 text-gray-800 dark:text-gray-300">Shipping and returns</p>
+                                <button
+                                    class="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 rounded"
+                                    role="button" aria-label="show or hide">
+                                    <img class="transform dark:hidden"
+                                        src="https://tuk-cdn.s3.amazonaws.com/can-uploader/productDetail3-svg4.svg"
+                                        alt="dropdown">
+                                    <img class="transform hidden dark:block"
+                                        src="https://tuk-cdn.s3.amazonaws.com/can-uploader/productDetail3-svg4dark.svg"
+                                        alt="dropdown">
+                                </button>
+                            </div>
+                            <div class="hidden pt-4 text-base leading-normal pr-12 mt-4 text-gray-600 dark:text-gray-300"
+                                id="sect">You will be responsible for paying for your own shipping costs for returning
+                                your item. Shipping costs are nonrefundable</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="border-b py-4 border-gray-200">
+                            <div data-menu class="flex justify-between items-center cursor-pointer">
+                                <p class="text-base leading-4 text-gray-800 dark:text-gray-300">Contact us</p>
+                                <button
+                                    class="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 rounded"
+                                    role="button" aria-label="show or hide">
+                                    <img class="transform dark:hidden"
+                                        src="https://tuk-cdn.s3.amazonaws.com/can-uploader/productDetail3-svg4.svg"
+                                        alt="dropdown">
+                                    <img class="transform hidden dark:block"
+                                        src="https://tuk-cdn.s3.amazonaws.com/can-uploader/productDetail3-svg4dark.svg"
+                                        alt="dropdown">
+                                </button>
+                            </div>
+                            <div class="hidden pt-4 text-base leading-normal pr-12 mt-4 text-gray-600 dark:text-gray-300"
+                                id="sect">If you have any questions on how to return your item to us, contact us.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <%- include('../partials/footer.ejs') %>
+
+                <script>
+                    let elements = document.querySelectorAll("[data-menu]");
+                    for (let i = 0; i < elements.length; i++) {
+                        let main = elements[i];
+                        main.addEventListener("click", function () {
+                            let element = main.parentElement.parentElement;
+                            let andicators = main.querySelectorAll("img");
+                            let child = element.querySelector("#sect");
+                            child.classList.toggle("hidden");
+                            andicators[0].classList.toggle("rotate-180");
+                        });
+                    }
+                </script>
+                <%- include('../partials/close.ejs') %>

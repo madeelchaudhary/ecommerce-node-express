@@ -1,0 +1,145 @@
+<%- include('../partials/open.ejs') %>
+<script src="https://js.stripe.com/v3/" defer></script>
+<script>
+  const stripePublicKey = "<%= publicKey %>";
+  window.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('payment-element').addEventListener('submit', handleSubmit)
+    const stripe = Stripe(stripePublicKey);
+
+    const elements = stripe.elements({
+      clientSecret: "<%= clientSecret %>",
+      theme: 'flat'
+    })
+
+    const paymentElementOptions = {
+      layout: "tabs",
+    };
+
+    const paymentElement = elements.create('payment', paymentElementOptions);
+    paymentElement.mount('#payment-element')
+
+  })
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+
+    const {
+      error
+    } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: "/success",
+        receipt_email: document.getElementById("email").value,
+      },
+    });
+
+    if (error.type === "card_error" || error.type === "validation_error") {
+      showMessage(error.message);
+    } else {
+      showMessage("An unexpected error occurred.");
+    }
+
+    setLoading(false);
+  }
+
+  function showMessage(messageText) {
+    const messageContainer = document.querySelector("#payment-message");
+
+    messageContainer.classList.remove("hidden");
+    messageContainer.textContent = messageText;
+
+    setTimeout(function() {
+      messageContainer.classList.add("hidden");
+      messageText.textContent = "";
+    }, 4000);
+  }
+
+
+  // Show a spinner on payment submission
+  function setLoading(isLoading) {
+    if (isLoading) {
+      // Disable the button and show a spinner
+      document.querySelector("#submit").disabled = true;
+      document.querySelector("#spinner").classList.remove("hidden");
+      document.querySelector("#button-text").classList.add("hidden");
+    } else {
+      document.querySelector("#submit").disabled = false;
+      document.querySelector("#spinner").classList.add("hidden");
+      document.querySelector("#button-text").classList.remove("hidden");
+    }
+  }
+</script>
+<%- include('../partials/closeHead.ejs') %>
+<%- include('../partials/nav.ejs') %>
+
+<div class="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
+  <div class="px-4 pt-8">
+    <p class="text-xl font-medium">Order Summary</p>
+    <p class="text-gray-400">Check your items. And select a suitable shipping method.</p>
+    <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+      <div class="flex flex-col rounded-lg bg-white sm:flex-row">
+        <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="https://images.unsplash.com/flagged/photo-1556637640-2c80d3201be8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="" />
+        <div class="flex w-full flex-col px-4 py-4">
+          <span class="font-semibold">Nike Air Max Pro 8888 - Super Light</span>
+          <span class="float-right text-gray-400">42EU - 8.5US</span>
+          <p class="text-lg font-bold">$138.99</p>
+        </div>
+      </div>
+      <div class="flex flex-col rounded-lg bg-white sm:flex-row">
+        <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="" />
+        <div class="flex w-full flex-col px-4 py-4">
+          <span class="font-semibold">Nike Air Max Pro 8888 - Super Light</span>
+          <span class="float-right text-gray-400">42EU - 8.5US</span>
+          <p class="mt-auto text-lg font-bold">$238.99</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-8 text-lg font-medium">Shipping Methods</p>
+    <form class="mt-5 grid gap-6">
+      <div class="relative">
+        <input class="peer hidden" id="radio_1" type="radio" name="radio" checked />
+        <span class="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
+        <label class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_1">
+          <img class="w-14 object-contain" src="/images/naorrAeygcJzX0SyNI4Y0.png" alt="" />
+          <div class="ml-5">
+            <span class="mt-2 font-semibold">Fedex Delivery</span>
+            <p class="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
+          </div>
+        </label>
+      </div>
+      <div class="relative">
+        <input class="peer hidden" id="radio_2" type="radio" name="radio" checked />
+        <span class="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
+        <label class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_2">
+          <img class="w-14 object-contain" src="/images/oG8xsl3xsOkwkMsrLGKM4.png" alt="" />
+          <div class="ml-5">
+            <span class="mt-2 font-semibold">Fedex Delivery</span>
+            <p class="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
+          </div>
+        </label>
+      </div>
+    </form>
+  </div>
+
+  <div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+    <!-- Display a payment form -->
+    <form id="payment-form">
+      <input type="text" id="email" placeholder="Enter email address" />
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="submit">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Pay now</span>
+      </button>
+      <div id="payment-message" class="hidden"></div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>
+<%- include('../partials/close.ejs') %>

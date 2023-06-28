@@ -1,0 +1,48 @@
+{
+  "name": "shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "nodemon --ext ts --exec ts-node ./app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postcss": "postcss ./styles/main.css -o ./public/styles/style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/connect-flash": "^0.0.37",
+    "@types/express": "^4.17.17",
+    "@types/express-session": "^1.17.7",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^18.16.2",
+    "autoprefixer": "^10.4.14",
+    "nodemon": "^2.0.22",
+    "postcss-cli": "^10.1.0",
+    "prisma": "^4.14.1",
+    "tailwindcss": "^3.3.2",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.14.1",
+    "@sendgrid/mail": "^7.7.0",
+    "bcrypt": "^5.1.0",
+    "connect-flash": "^0.1.1",
+    "connect-redis": "^7.0.1",
+    "csrf": "^3.1.0",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^3.3.1",
+    "node-mailjet": "^6.0.2",
+    "redis": "^4.6.6",
+    "stripe": "^12.6.0"
+  }
+}
